@@ -64,7 +64,7 @@ export default function Footer() {
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/60 text-sm font-sans">
-              PRIME HEALTH © 2026. All Rights Reserved.
+              Medi Health © 2026. All Rights Reserved.
             </p>
             <div className="flex items-center gap-3">
               {/* Payment Icons */}

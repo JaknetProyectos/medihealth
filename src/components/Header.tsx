@@ -15,7 +15,7 @@ function Logo() {
         <path d="M18 8C17.4 8 17 8.4 17 9V17H9C8.4 17 8 17.4 8 18C8 18.6 8.4 19 9 19H17V27C17 27.6 17.4 28 18 28C18.6 28 19 27.6 19 27V19H27C27.6 19 28 18.6 28 18C28 17.4 27.6 17 27 17H19V9C19 8.4 18.6 8 18 8Z" fill="white" />
       </svg>
       <span className="text-xl md:text-2xl font-bold text-[#102f67] font-serif">
-        Prime Health
+        Medi Health
       </span>
     </div>
   );

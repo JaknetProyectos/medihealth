@@ -8,7 +8,7 @@ export default function EquipmentSection() {
           {/* Text Content */}
           <div className="space-y-6 order-2 md:order-1">
             <p className="text-[#4a5568] leading-relaxed text-lg font-sans">
-              <strong className="text-[#102f67]">Prime Health</strong> proporciona una amplia variedad de equipos y
+              <strong className="text-[#102f67]">Medi Health</strong> proporciona una amplia variedad de equipos y
               dispositivos médicos, material quirúrgico, equipos de diagnóstico
               y otros insumos esenciales para la atención. Nos especializamos
               en brindar soluciones integrales y asequibles para todas tus
@@ -21,7 +21,7 @@ export default function EquipmentSection() {
             </p>
             <p className="text-[#4a5568] leading-relaxed text-lg font-sans">
               Nos comprometemos con tu bienestar y el de tus pacientes. En{" "}
-              <strong className="text-[#102f67]">Prime Health</strong>, nos dedicamos a proporcionar productos que no
+              <strong className="text-[#102f67]">Medi Health</strong>, nos dedicamos a proporcionar productos que no
               solo cumplan, sino que superen las expectativas, asegurando la
               máxima satisfacción en cada compra.
             </p>

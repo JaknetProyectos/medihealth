@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
     // 1. Email para el Administrador
     await resend.emails.send({
-      from: 'Prime Health <contacto@vivamytrip.com>',
+      from: 'Medi Health <contacto@vivamytrip.com>',
       to: email,
       subject: `Nuevo Mensaje de Contacto: ${firstName} ${lastName}`,
       html: `
@@ -34,9 +34,9 @@ export async function POST(req: Request) {
 
     // 2. Email de Confirmación para el Usuario
     await resend.emails.send({
-      from: 'Prime Health <contacto@vivamytrip.com>',
+      from: 'Medi Health <contacto@vivamytrip.com>',
       to: email,
-      subject: 'Recibimos tu mensaje - Prime Health',
+      subject: 'Recibimos tu mensaje - Medi Health',
       html: `
         <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #eee; border-radius: 12px; overflow: hidden;">
           <div style="background-color: #102f67; padding: 30px; text-align: center;">
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
             <h2 style="margin-top: 0;">Gracias por contactarnos</h2>
             <p style="font-size: 16px; line-height: 1.6;">Hemos recibido tu mensaje correctamente. Uno de nuestros asesores médicos se pondrá en contacto contigo en breve.</p>
             <div style="margin-top: 30px; padding: 20px; border-top: 2px solid #fbbf24; display: inline-block;">
-              <p style="margin: 0; font-weight: bold;">Equipo Prime Health</p>
+              <p style="margin: 0; font-weight: bold;">Equipo Medi Health</p>
             </div>
           </div>
         </div>

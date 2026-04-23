@@ -174,7 +174,7 @@ export default function CotizaPage() {
                   <CreditCard size={20} />
                 </div>
                 <p className="text-sm text-blue-700 leading-relaxed font-sans">
-                  <strong>Aviso:</strong> Esta sección es exclusivamente para clientes con una cotización previa validada por un asesor de Prime Health. El monto ingresado será procesado como un pago único.
+                  <strong>Aviso:</strong> Esta sección es exclusivamente para clientes con una cotización previa validada por un asesor de Medi Health. El monto ingresado será procesado como un pago único.
                 </p>
               </div>
 

@@ -5,7 +5,7 @@ export default function WelcomeSection() {
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <p className="text-[#627d92] uppercase tracking-[0.2em] text-sm mb-4 font-sans">
-            Bienvenido a PRIME HEALTH
+            Bienvenido a Medi Health
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#102f67] leading-tight max-w-xl mx-auto">
             Tu Destino Principal para Suministros Médicos Especializados
@@ -26,7 +26,7 @@ export default function WelcomeSection() {
           {/* Text Content */}
           <div className="space-y-6">
             <p className="text-[#4a5568] leading-relaxed text-lg font-sans">
-              En <strong className="text-[#102f67]">PRIME HEALTH</strong>, nos comprometemos a proporcionar
+              En <strong className="text-[#102f67]">Medi Health</strong>, nos comprometemos a proporcionar
               suministros médicos de la más alta calidad que cumplen con los
               estándares más exigentes de excelencia.
             </p>

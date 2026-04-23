@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const ticketTemplate = `
       <div style="font-family: 'Courier New', Courier, monospace; max-width: 450px; margin: auto; border: 1px solid #eee; padding: 20px; color: #333;">
         <div style="text-align: center; background-color: #102f67; padding: 20px; margin: -20px -20px 20px -20px;">
-          <h2 style="color: #fbbf24; margin: 0; text-transform: uppercase;">Prime Health</h2>
+          <h2 style="color: #fbbf24; margin: 0; text-transform: uppercase;">Medi Health</h2>
           <p style="color: white; font-size: 12px; margin: 5px 0 0 0;">COMPROBANTE DE ORDEN</p>
         </div>
         
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         </div>
 
         <div style="text-align: center; margin-top: 30px; font-size: 10px; color: #999;">
-          <p>Gracias por su confianza en Prime Health.</p>
+          <p>Gracias por su confianza en Medi Health.</p>
           <p>Este es un recibo automático de su transacción.</p>
         </div>
       </div>
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
     // Envío a ambos: Admin y Cliente
     await resend.emails.send({
-      from: 'Prime Health <contacto@vivamytrip.com>',
+      from: 'Medi Health <contacto@vivamytrip.com>',
       to: [customer.email, 'contacto@vivamytrip.com'],
       subject: `Ticket de Compra: ${orderId}`,
       html: ticketTemplate,

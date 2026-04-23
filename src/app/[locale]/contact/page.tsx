@@ -103,7 +103,7 @@ export default function ContactPage() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Ubicación de Prime Health"
+            title="Ubicación de Medi Health"
           />
         </div>
       </main>
