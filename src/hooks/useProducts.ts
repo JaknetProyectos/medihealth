@@ -17,6 +17,8 @@ export interface Product {
   sku: string;
   rating: number;
   reviews: number;
+  name_english: string;
+  description_english: string;
   specifications?: { label: string; value: string }[];
 }
 

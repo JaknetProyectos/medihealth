@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     `).join('');
 
     const ticketTemplate = `
-      <div style="font-family: 'Courier New', Courier, monospace; max-width: 450px; margin: auto; border: 1px solid #eee; padding: 20px; color: #333;">
+      <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 450px; margin: auto; border: 1px solid #eee; padding: 20px; color: #333;">
         <div style="text-align: center; background-color: #102f67; padding: 20px; margin: -20px -20px 20px -20px;">
           <h2 style="color: #fbbf24; margin: 0; text-transform: uppercase;">Medi Health</h2>
           <p style="color: white; font-size: 12px; margin: 5px 0 0 0;">COMPROBANTE DE ORDEN</p>

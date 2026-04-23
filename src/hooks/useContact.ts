@@ -38,7 +38,7 @@ export function useContact(): UseContactReturn {
     } finally {
       setIsSubmitting(false);
     }
-  }, []);
+  }, [locale]);
 
   return { submitContact, isSubmitting };
 }

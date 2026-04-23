@@ -1,44 +1,69 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { CheckCircle2 } from "lucide-react";
+
 export default function WelcomeSection() {
+  const t = useTranslations("Welcome");
+
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-20 md:py-28 bg-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <p className="text-[#627d92] uppercase tracking-[0.2em] text-sm mb-4 font-sans">
-            Bienvenido a Medi Health
+        <div className="flex flex-col items-center text-center mb-16 md:mb-24">
+          <div className="w-12 h-1.5 bg-[#facc15] mb-6 rounded-full" />
+          <p className="text-[#3048ab] uppercase   text-xs md:text-sm font-black mb-4">
+            {t("subtitle")}
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#102f67] leading-tight max-w-xl mx-auto">
-            Tu Destino Principal para Suministros Médicos Especializados
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0a0f1a] leading-[1.1] max-w-3xl  ">
+            {t("title")}
           </h2>
         </div>
 
         {/* Content Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Image */}
-          <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-xl">
-            <img
-              src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&q=80"
-              alt="Laboratorio médico"
-              className="w-full h-full object-cover"
-            />
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
+          {/* Image con diseño moderno (Floating Effect) */}
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-[#facc15]/10 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500" />
+            <div className="relative h-[350px] md:h-[500px] rounded-xl overflow-hidden shadow-2xl border border-slate-100">
+              <img
+                src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&q=80"
+                alt="Medical Laboratory"
+                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
+              />
+            </div>
+
           </div>
 
           {/* Text Content */}
-          <div className="space-y-6">
-            <p className="text-[#4a5568] leading-relaxed text-lg font-sans">
-              En <strong className="text-[#102f67]">Medi Health</strong>, nos comprometemos a proporcionar
-              suministros médicos de la más alta calidad que cumplen con los
-              estándares más exigentes de excelencia.
-            </p>
-            <p className="text-[#4a5568] leading-relaxed text-lg font-sans">
-              Nuestra amplia gama de productos especializados está diseñada
-              para apoyar a los profesionales de la salud en la entrega del mejor
-              cuidado posible a sus pacientes.
-            </p>
-            <p className="text-[#4a5568] leading-relaxed text-lg font-sans">
-              Estamos disponibles para ayudarte a encontrar cualquier producto
-              especializado que requieras a través de nuestra sección de cotizar.
-            </p>
+          <div className="space-y-8 lg:pl-4">
+            <div className="space-y-6">
+              <p className="text-[#334155] leading-relaxed text-xl font-light   border-l-4 border-[#3048ab] pl-6">
+                {t("paragraph1_part1")} <strong className="text-[#0a0f1a] font-bold">Medi Health</strong>, {t("paragraph1_part2")}
+              </p>
+              
+              <p className="text-[#475569] leading-relaxed text-lg font-normal">
+                {t("paragraph2")}
+              </p>
+              
+              <p className="text-[#475569] leading-relaxed text-lg font-normal">
+                {t("paragraph3")}
+              </p>
+            </div>
+
+            {/* Lista de beneficios rápida (Modern Touch) */}
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#facc15]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0a0f1a]">{t("feature1")}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#facc15]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0a0f1a]">{t("feature2")}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

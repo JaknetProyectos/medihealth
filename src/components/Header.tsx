@@ -1,22 +1,26 @@
 "use client";
 
 import { useState } from "react";
-// Importamos todo desde nuestro archivo de routing
 import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
-import { Menu, X, ShoppingCart, Globe } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  ShoppingCart, 
+  Globe, 
+  Home, 
+  FileText, 
+  Stethoscope, 
+  PhoneCall 
+} from "lucide-react";
 import { useCartContext } from "@/context/CartContext";
+import Image from "next/image";
 
 function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-9 md:h-9">
-        <circle cx="18" cy="18" r="18" fill="#3b82f6" />
-        <path d="M18 8C17.4 8 17 8.4 17 9V17H9C8.4 17 8 17.4 8 18C8 18.6 8.4 19 9 19H17V27C17 27.6 17.4 28 18 28C18.6 28 19 27.6 19 27V19H27C27.6 19 28 18.6 28 18C28 17.4 27.6 17 27 17H19V9C19 8.4 18.6 8 18 8Z" fill="white" />
-      </svg>
-      <span className="text-xl md:text-2xl font-bold text-[#102f67] font-serif">
-        Medi Health
-      </span>
+      <Image src="/favicon.png" width={35} height={35} alt="logo" className="object-contain"/>
+      <Image src="/logo-full.png" width={140} height={45} alt="logo" className="hidden sm:block object-contain"/>
     </div>
   );
 }
@@ -25,66 +29,80 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { totalItems } = useCartContext();
   
-  // Hooks de traducción y rutas
   const t = useTranslations("Header");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
 
-  // Función para cambiar el idioma manteniendo la página actual
   const toggleLocale = () => {
     const nextLocale = locale === "es" ? "en" : "es";
     router.replace(pathname, { locale: nextLocale });
   };
 
+  // Clases compartidas para los links
+  const navLinkStyles = "flex items-center gap-2 text-[#0f172a] font-semibold hover:text-[#2563eb] transition-all duration-200 group";
+  const iconStyles = "text-[#facc15] group-hover:text-[#2563eb] transition-colors";
+
   return (
-    <header className="bg-white sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-2">
+    <header className="bg-white border-b-4 border-[#facc15] sticky top-0 z-50 shadow-md">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          
+          <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
             <Logo />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-[#102f67] font-medium hover:text-[#3b82f6] transition-colors font-sans">
-              {t("home")}
+          <nav className="hidden lg:flex items-center gap-10">
+            <Link href="/" className={navLinkStyles}>
+              <Home size={18} className={iconStyles} />
+              <span className="tracking-wide uppercase text-sm">{t("home")}</span>
             </Link>
-            <Link href="/cotiza" className="text-[#102f67] font-medium hover:text-[#3b82f6] transition-colors font-sans">
-              {t("quote")}
+            <Link href="/cotiza" className={navLinkStyles}>
+              <FileText size={18} className={iconStyles} />
+              <span className="tracking-wide uppercase text-sm">{t("quote")}</span>
             </Link>
-            <Link href="/shop" className="text-[#102f67] font-medium hover:text-[#3b82f6] transition-colors font-sans">
-              {t("shop")}
+            <Link href="/shop" className={navLinkStyles}>
+              <Stethoscope size={18} className={iconStyles} />
+              <span className="tracking-wide uppercase text-sm">{t("shop")}</span>
             </Link>
           </nav>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2 md:gap-4">
-            {/* Locale Switcher Button */}
+          <div className="flex items-center gap-3">
+            
+            {/* Language Switcher */}
             <button
               onClick={toggleLocale}
-              className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-[#102f67] border border-gray-200 rounded-full hover:bg-gray-50 transition-colors"
-              title={locale === "es" ? "Switch to English" : "Cambiar a Español"}
+              className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-[#3048ab] bg-blue-50 border border-blue-100 rounded-md hover:bg-blue-100 transition-colors"
             >
-              <Globe size={16} />
+              <Globe size={14} />
               <span className="uppercase">{locale}</span>
             </button>
 
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center justify-center px-6 py-2.5 bg-[#3b82f6] text-white font-medium rounded-full hover:bg-[#2563eb] transition-colors font-sans"
+              className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-[#3048ab] text-white text-sm font-bold rounded shadow-sm hover:bg-[#1d4ed8] transition-all transform active:scale-95"
             >
+              <PhoneCall size={16} />
               {t("contact")}
             </Link>
 
-            <Link href="/cart" className="relative p-2 text-[#102f67] hover:text-[#3b82f6] transition-colors">
-              <ShoppingCart size={24} />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#3b82f6] text-white text-xs rounded-full flex items-center justify-center font-sans">
-                {totalItems}
-              </span>
+            <div className="h-8 w-px bg-gray-200 mx-1 hidden sm:block"></div>
+
+            <Link href="/cart" className="relative p-2 text-[#0f172a] hover:text-[#2563eb] transition-colors">
+              <ShoppingCart size={26} strokeWidth={2.5} />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 w-5 h-5 bg-[#e11d48] text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                  {totalItems}
+                </span>
+              )}
             </Link>
 
-            <button className="md:hidden p-2 text-[#102f67]" onClick={() => setIsMenuOpen(!isMenuOpen)} type="button">
+            <button 
+              className="lg:hidden p-2 text-[#0f172a] bg-gray-100 rounded" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -92,22 +110,28 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 py-4">
-            <nav className="flex flex-col gap-4">
-              <Link href="/" className="text-[#102f67] font-medium hover:text-[#3b82f6] transition-colors py-2 font-sans" onClick={() => setIsMenuOpen(false)}>
+          <div className="lg:hidden bg-gray-50 border-t border-gray-200 absolute left-0 w-full shadow-xl animate-in slide-in-from-top duration-300">
+            <nav className="flex flex-col p-6 gap-6">
+              <Link href="/" className={navLinkStyles} onClick={() => setIsMenuOpen(false)}>
+                <Home size={20} className={iconStyles} />
                 {t("home")}
               </Link>
-              <Link href="/cotiza" className="text-[#102f67] font-medium hover:text-[#3b82f6] transition-colors py-2 font-sans" onClick={() => setIsMenuOpen(false)}>
+              <Link href="/cotiza" className={navLinkStyles} onClick={() => setIsMenuOpen(false)}>
+                <FileText size={20} className={iconStyles} />
                 {t("quote")}
               </Link>
-              <Link href="/shop" className="text-[#102f67] font-medium hover:text-[#3b82f6] transition-colors py-2 font-sans" onClick={() => setIsMenuOpen(false)}>
+              <Link href="/shop" className={navLinkStyles} onClick={() => setIsMenuOpen(false)}>
+                <Stethoscope size={20} className={iconStyles} />
                 {t("shop")}
               </Link>
-              <div className="flex justify-between items-center pt-2">
-                <Link href="/contact" className="inline-flex items-center justify-center px-6 py-2.5 bg-[#3b82f6] text-white font-medium rounded-full hover:bg-[#2563eb] transition-colors w-fit font-sans" onClick={() => setIsMenuOpen(false)}>
-                  {t("contact")}
-                </Link>
-              </div>
+              <Link 
+                href="/contact" 
+                className="flex items-center justify-center gap-2 px-6 py-4 bg-[#3048ab] text-white font-bold rounded shadow-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <PhoneCall size={20} />
+                {t("contact")}
+              </Link>
             </nav>
           </div>
         )}

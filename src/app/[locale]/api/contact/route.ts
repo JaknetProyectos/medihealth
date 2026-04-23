@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       to: email,
       subject: `Nuevo Mensaje de Contacto: ${firstName} ${lastName}`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #eee;">
+        <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; border: 1px solid #eee;">
           <div style="background-color: #102f67; padding: 20px; text-align: center;">
             <h1 style="color: #fbbf24; margin: 0;">Nuevo Lead de Contacto</h1>
           </div>
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
       to: email,
       subject: 'Recibimos tu mensaje - Medi Health',
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #eee; border-radius: 12px; overflow: hidden;">
+        <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; border: 1px solid #eee; border-radius: 12px; overflow: hidden;">
           <div style="background-color: #102f67; padding: 30px; text-align: center;">
             <h1 style="color: #fbbf24; margin: 0; font-size: 24px;">¡Hola, ${firstName}!</h1>
           </div>

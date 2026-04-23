@@ -1,58 +1,71 @@
-import { Award, Users, HeadphonesIcon, FileText } from "lucide-react";
+"use client";
 
-const features = [
-  {
-    icon: Award,
-    title: "Garantía de Calidad",
-    description:
-      "Todos nuestros productos se someten a rigurosos controles de calidad para garantizar su fiabilidad y efectividad.",
-  },
-  {
-    icon: Users,
-    title: "Experiencia",
-    description:
-      "Entendemos las necesidades únicas de los proveedores de salud y ofrecemos productos que satisfacen esos requisitos específicos.",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "Servicio Orientado al Cliente",
-    description:
-      "Nuestro dedicado equipo de soporte al cliente está aquí para asistirte en cada paso del camino, desde la selección de productos hasta el servicio postventa.",
-  },
-  {
-    icon: FileText,
-    title: "Productos cotizables",
-    description:
-      "Podemos ayudarte a encontrar cualquier producto que no esté en nuestro catálogo. Permítenos asesorarte en nuestra sección de cotizar.",
-  },
-];
+import { Award, Users, HeadphonesIcon, FileText } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function WhyChooseUs() {
+  const t = useTranslations("WhyChoose");
+
+  const features = [
+    {
+      icon: Award,
+      title: t("qualityTitle"),
+      description: t("qualityDesc"),
+    },
+    {
+      icon: Users,
+      title: t("experienceTitle"),
+      description: t("experienceDesc"),
+    },
+    {
+      icon: HeadphonesIcon,
+      title: t("serviceTitle"),
+      description: t("serviceDesc"),
+    },
+    {
+      icon: FileText,
+      title: t("quoteTitle"),
+      description: t("quoteDesc"),
+    },
+  ];
+
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-[#0f2a5c] via-[#164080] to-[#1a4a8a]">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-12 md:mb-16">
-          ¿Porqué elegirnos?
-        </h2>
+    <section className="relative py-24 md:py-32 bg-[#3048ab] overflow-hidden">
+      {/* Elemento decorativo: Rejilla técnica de fondo */}
+      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#facc15 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}></div>
+
+      <div className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white   uppercase  ">
+            {t('WhyChoose')}
+          </h2>
+          <div className="h-1 w-24 bg-[#facc15] mx-auto mt-6"></div>
+        </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div key={index} className="text-center px-4">
-                <div className="mb-6 flex justify-center">
-                  <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                    <Icon className="w-8 h-8 text-white" strokeWidth={1.5} />
+              <div 
+                key={index} 
+                className="group flex gap-6 p-8 bg-white/5 text-white border border-white/10 rounded-2xl hover:bg-white/[0.08] transition-all duration-300 hover:border-[#facc15]/30 shadow-2xl"
+              >
+                <div className="flex-shrink-0">
+                  <div className="w-14 h-14 bg-[#3048ab] border-2 border-[#facc15] rounded-lg flex items-center justify-center transition-transform group-hover:rotate-12 duration-500">
+                    <Icon className="w-7 h-7 text-[#facc15]" strokeWidth={2} />
                   </div>
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-white/80 leading-relaxed">
-                  {feature.description}
-                </p>
+                
+                <div className="space-y-3 text-left">
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="text-white leading-relaxed text-sm md:text-base font-light">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
             );
           })}

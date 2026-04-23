@@ -3,9 +3,24 @@ import "./globals.css";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Turivana - Live the best of Mexico",
-  description: "En Turivana creemos que viajar es mucho más que moverse de un lugar a otro: es vivir experiencias que despiertan los sentidos, conectan con la cultura y dejan recuerdos inolvidables.",
-  keywords: ["México", "Turismo", "Viajes", "Experiencias", "Fútbol"],
+  title: {
+    default: "MediHealth | Insumos y Equipo Médico de Alta Calidad",
+    template: "%s | MediHealth"
+  },
+  description: "Distribuidora líder en insumos médicos especializados. Ofrecemos soluciones integrales para hospitales, clínicas y profesionales de la salud con estándares internacionales.",
+  keywords: [
+    "insumos médicos",
+    "equipo hospitalario",
+    "material de curación",
+    "tecnología médica",
+    "dispositivos médicos México",
+    "distribuidora médica",
+    "catálogo médico"
+  ],
+  authors: [{ name: "MediHealth" }],
+  creator: "MediHealth",
+  publisher: "MediHealth",
+  robots: "index, follow",
 };
 
 export default function RootLayout({
