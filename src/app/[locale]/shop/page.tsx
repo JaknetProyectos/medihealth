@@ -29,7 +29,7 @@ export default function ShopPage() {
   const [showFilters, setShowFilters] = useState(false);
   
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
+  const pageSize = 12;
 
   const { 
     products, 
@@ -189,12 +189,7 @@ export default function ShopPage() {
                       key={product.id}
                       className="group bg-white rounded-[2rem] border border-slate-100 p-6 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 hover:-translate-y-2 flex flex-col relative"
                     >
-                      {/* Badge de Oferta Técnico */}
-                      {product.originalPrice && (
-                        <div className="absolute top-4 left-4 z-10 bg-red-600 text-white text-[10px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase    ">
-                          {t("saleBadge")}
-                        </div>
-                      )}
+                      
 
                       <Link href={`/shop/${product.id}`} className="block relative aspect-square rounded-2xl bg-slate-50 mb-6 overflow-hidden">
                         <img
@@ -222,21 +217,14 @@ export default function ShopPage() {
                           </h3>
                         </Link>
 
-                        <div className="flex items-center gap-2 mt-3">
-                          <Star size={12} className="fill-[#facc15] text-[#facc15]" />
-                          <span className="text-[10px] font-bold text-white-400 uppercase">{product.rating} ({product.reviews})</span>
-                        </div>
+                      
 
                         <div className="mt-6 flex flex-col">
                           <div className="flex items-baseline gap-2">
                             <span className="text-xl font-black text-[#0a0f1a]  ">
                               {formatPrice(product.price)}
                             </span>
-                            {product.originalPrice && (
-                              <span className="text-xs text-white-300 line-through font-light  ">
-                                {formatPrice(product.originalPrice)}
-                              </span>
-                            )}
+                            
                           </div>
                         </div>
 

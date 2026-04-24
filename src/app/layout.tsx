@@ -4,8 +4,8 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
-    default: "MediHealth | Insumos y Equipo Médico de Alta Calidad",
-    template: "%s | MediHealth"
+    default: "Distribución Médica | Insumos y Equipo Médico de Alta Calidad",
+    template: "%s | Distribución Médica"
   },
   description: "Distribuidora líder en insumos médicos especializados. Ofrecemos soluciones integrales para hospitales, clínicas y profesionales de la salud con estándares internacionales.",
   keywords: [
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     "distribuidora médica",
     "catálogo médico"
   ],
-  authors: [{ name: "MediHealth" }],
-  creator: "MediHealth",
-  publisher: "MediHealth",
+  authors: [{ name: "Distribución Médica" }],
+  creator: "Distribución Médica",
+  publisher: "Distribución Médica",
   robots: "index, follow",
 };
 

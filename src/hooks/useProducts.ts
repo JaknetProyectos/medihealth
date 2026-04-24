@@ -60,7 +60,7 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsReturn
       try {
         // 1. Obtener categorías únicas (Solo una vez o cuando sea necesario)
         const { data: catData } = await supabase
-          .from("Products")
+          .from("distribucionmedica_products")
           .select("category");
         
         if (catData) {
@@ -75,7 +75,7 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsReturn
 
         // 3. Construir consulta de productos con conteo
         let query = supabase
-          .from("Products")
+          .from("distribucionmedica_products")
           .select("*", { count: 'exact' }); // Pedimos el conteo total
 
         // Filtro por categoría
@@ -142,7 +142,7 @@ export function useProduct(id: string): UseProductReturn {
 
       try {
         const { data: mainProduct, error: mainError } = await supabase
-          .from("Products")
+          .from("distribucionmedica_products")
           .select("*")
           .eq("id", id)
           .single();
@@ -153,7 +153,7 @@ export function useProduct(id: string): UseProductReturn {
           setProduct(mainProduct);
 
           const { data: related, error: relatedError } = await supabase
-            .from("Products")
+            .from("distribucionmedica_products")
             .select("*")
             .eq("category", mainProduct.category)
             .neq("id", id)

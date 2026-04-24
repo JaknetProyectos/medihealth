@@ -17,9 +17,7 @@ export default function Footer() {
           {/* Tagline & Logo */}
           <div className="space-y-6">
             <div className=" p-2 inline-block rounded"> 
-              <Image 
-              className="brightness-0 invert"
-               src="/logo-full.png" width={160} height={50} alt="MediHealth Logo" />
+              <h1 className="text-lg uppercase text-center text-[#facc15] font-light">Distribución Médica</h1>
             </div>
             <p className="text-base leading-relaxed text-white-300 font-sans border-l-2 border-[#facc15] pl-4">
               {t("tagline")}
@@ -42,8 +40,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={20} className="text-[#facc15] shrink-0" />
-                <Link href="mailto:contacto@prime-health.mx" className="hover:text-white transition-colors underline-offset-4 hover:underline">
-                  contacto@prime-health.mx
+                <Link href="mailto:contacto@distribucionmedica.com" className="hover:text-white transition-colors underline-offset-4 hover:underline">
+                  contacto@distribucionmedica.com
                 </Link>
               </div>
             </address>
@@ -77,7 +75,7 @@ export default function Footer() {
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-white-500 text-xs font-sans">
-              © 2026 Medi Health. {t("rights")}
+              © 2026 Distribución Médica. {t("rights")}
             </p>
             
             <div className="flex items-center gap-4 opacity-80 grayscale hover:grayscale-0 transition-all">

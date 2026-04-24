@@ -68,9 +68,9 @@ export default function ContactPage() {
               <ContactInfoCard 
                 icon={<Mail className="text-[#facc15]" />} 
                 title={t("labelEmail")} 
-                content="contacto@prime-health.mx" 
+                content="contacto@distribucionmedica.com" 
                 isLink 
-                href="mailto:contacto@prime-health.mx" 
+                href="mailto:contacto@distribucionmedica.com" 
               />
               <ContactInfoCard 
                 icon={<Phone className="text-[#facc15]" />} 
@@ -203,7 +203,7 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación de Medi Health"
+                title="Ubicación de Distribución Médica"
                 className="grayscale-[20%] contrast-[1.1]"
               />
             </div>

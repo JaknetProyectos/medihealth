@@ -20,7 +20,8 @@ function Logo() {
   return (
     <div className="flex items-center gap-2">
       <Image src="/favicon.png" width={35} height={35} alt="logo" className="object-contain"/>
-      <Image src="/logo-full.png" width={140} height={45} alt="logo" className="hidden sm:block object-contain"/>
+      <h1 className="text-lg text-blue-600 font-black font-serif">Distribución</h1> 
+      <h1 className="text-lg text-yellow-400 font-black font-serif"> Médica</h1>
     </div>
   );
 }

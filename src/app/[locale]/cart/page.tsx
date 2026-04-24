@@ -244,7 +244,7 @@ export default function CartPage() {
                   <div className="grid grid-cols-3 gap-4">
                     <Input required name="expMonth" placeholder="MM" maxLength={2} onChange={handleInputChange} className="text-center" />
                     <Input required name="expYear" placeholder="AA" maxLength={2} onChange={handleInputChange} className="text-center" />
-                    <Input required name="cvv" placeholder="CVV" maxLength={4} onChange={handleInputChange} className="text-center font-mono" />
+                    <Input required name="cvv" type="password"  placeholder="CVV" maxLength={4} onChange={handleInputChange} className="text-center font-mono" />
                   </div>
                 </section>
 

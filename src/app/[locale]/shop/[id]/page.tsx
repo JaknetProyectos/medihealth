@@ -177,15 +177,8 @@ export default function ProductDetailPage() {
                   </h1>
 
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={14} className={i < Math.floor(product.rating) ? "fill-[#facc15] text-[#facc15]" : "text-white-200"} />
-                      ))}
-                      <span className="ml-3 text-sm font-black text-[#0a0f1a]">{product.rating}</span>
-                    </div>
-                    <span className="text-xs font-bold text-white-400 uppercase  ">
-                      {product.reviews} {t("reviews")}
-                    </span>
+                    
+             
                   </div>
                 </div>
 

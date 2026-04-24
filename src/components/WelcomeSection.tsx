@@ -41,7 +41,7 @@ export default function WelcomeSection() {
           <div className="space-y-8 lg:pl-4">
             <div className="space-y-6">
               <p className="text-[#334155] leading-relaxed text-xl font-light   border-l-4 border-[#3048ab] pl-6">
-                {t("paragraph1_part1")} <strong className="text-[#0a0f1a] font-bold">Medi Health</strong>, {t("paragraph1_part2")}
+                {t("paragraph1_part1")} <strong className="text-[#0a0f1a] font-bold">Distribución Médica</strong>, {t("paragraph1_part2")}
               </p>
               
               <p className="text-[#475569] leading-relaxed text-lg font-normal">
