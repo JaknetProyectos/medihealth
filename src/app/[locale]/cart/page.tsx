@@ -57,7 +57,7 @@ export default function CartPage() {
         setOrderSummary({ id: orderId, items: finalItems, total: finalTotal });
 
         try {
-          await fetch(`/${locale}/api/checkout`, {
+          await fetch(`/${locale ?? "es"}/api/checkout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ orderId, items: finalItems, total: finalTotal, customer: formData })
