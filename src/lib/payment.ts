@@ -76,8 +76,6 @@ export async function processEtominPayment(payment: PaymentData) {
             reference: payment.orderId
         });
 
-        console.log(saleResponse.data)
-
         // Retornamos la data si el status es aprobado (usualmente 'APPROVED' o '00')
         return saleResponse.data;
 

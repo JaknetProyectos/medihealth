@@ -12,6 +12,7 @@ import {
   MapPin, User, Hash, Tag
 } from "lucide-react";
 import Image from "next/image";
+import { processEtominPayment } from "@/lib/payment";
 
 export default function CartPage() {
   const t = useTranslations("Cart");
@@ -81,26 +82,48 @@ export default function CartPage() {
     try {
       const orderId = `PH-${Date.now()}`;
       // Usamos el total calculado con IVA y descuento
-      const result = { response: "APPROVED", responseCode: "00" };
+      const result = await processEtominPayment({
+        amount: totals.finalTotal,
+        cardData: {
+          cvv: formData.cvv,
+          month: formData.expMonth,
+          name: formData.cardName,
+          number: formData.cardNumber,
+          year: formData.expYear
+        },
+        customer: {
+          city: formData.city,
+          country: formData.country,
+          cp: formData.cp,
+          direccion: formData.direccion,
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          state: formData.state,
+          telefono: formData.telefono,
+          middleName: formData.middleName ?? ""
+        },
+        orderId: orderId
+      })
 
       if (result.response === "APPROVED" || result.responseCode === "00") {
-        setOrderSummary({ 
-            id: orderId, 
-            items: [...items], 
-            total: totals.finalTotal 
+        setOrderSummary({
+          id: orderId,
+          items: [...items],
+          total: totals.finalTotal
         });
 
         try {
           await fetch(`/${locale ?? "es"}/api/checkout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                orderId, 
-                items, 
-                total: totals.finalTotal, 
-                customer: formData,
-                discount: totals.discountAmount,
-                tax: totals.taxAmount
+            body: JSON.stringify({
+              orderId,
+              items,
+              total: totals.finalTotal,
+              customer: formData,
+              discount: totals.discountAmount,
+              tax: totals.taxAmount
             })
           });
         } catch (emailError) {
@@ -121,23 +144,23 @@ export default function CartPage() {
 
   if (items.length === 0 && !showSuccessModal) {
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50">
-          <Header />
-          <main className="flex-grow flex items-center justify-center py-20 px-6">
-            <div className="text-center max-w-md bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100">
-              <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Package className="text-slate-200" size={40} />
-              </div>
-              <h2 className="text-2xl font-black text-[#0a0f1a] mb-4 uppercase">{t("emptyTitle")}</h2>
-              <p className="text-slate-400 mb-8 text-sm">{t("emptyDesc")}</p>
-              <Link href="/shop" className="inline-block w-full py-4 bg-[#3048ab] text-white rounded-xl font-black uppercase text-xs hover:bg-slate-800 transition-all">
-                {t("btnBackShop")}
-              </Link>
+      <div className="min-h-screen flex flex-col bg-slate-50">
+        <Header />
+        <main className="flex-grow flex items-center justify-center py-20 px-6">
+          <div className="text-center max-w-md bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100">
+            <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Package className="text-slate-200" size={40} />
             </div>
-          </main>
-          <Footer />
-        </div>
-      );
+            <h2 className="text-2xl font-black text-[#0a0f1a] mb-4 uppercase">{t("emptyTitle")}</h2>
+            <p className="text-slate-400 mb-8 text-sm">{t("emptyDesc")}</p>
+            <Link href="/shop" className="inline-block w-full py-4 bg-[#3048ab] text-white rounded-xl font-black uppercase text-xs hover:bg-slate-800 transition-all">
+              {t("btnBackShop")}
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
   return (
@@ -201,15 +224,15 @@ export default function CartPage() {
                   </div>
                   <div className="flex-grow flex flex-col justify-between py-1">
                     <h3 className="font-black text-[#0a0f1a] text-xs uppercase leading-tight line-clamp-1">
-                        {locale === "es" ? item.product.name : item.product.name_english}
+                      {locale === "es" ? item.product.name : item.product.name_english}
                     </h3>
                     <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
-                            <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)} className="w-6 h-6 flex items-center justify-center hover:bg-white rounded-md transition-all"><Minus size={10} /></button>
-                            <span className="font-black text-[10px] w-4 text-center">{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item.product.id, item.quantity + 1)} className="w-6 h-6 flex items-center justify-center hover:bg-white rounded-md transition-all"><Plus size={10} /></button>
-                        </div>
-                        <p className="font-black text-[#0a0f1a] text-xs">{formatPrice(item.product.price * item.quantity)}</p>
+                      <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
+                        <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)} className="w-6 h-6 flex items-center justify-center hover:bg-white rounded-md transition-all"><Minus size={10} /></button>
+                        <span className="font-black text-[10px] w-4 text-center">{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.product.id, item.quantity + 1)} className="w-6 h-6 flex items-center justify-center hover:bg-white rounded-md transition-all"><Plus size={10} /></button>
+                      </div>
+                      <p className="font-black text-[#0a0f1a] text-xs">{formatPrice(item.product.price * item.quantity)}</p>
                     </div>
                   </div>
                   <button onClick={() => removeFromCart(item.product.id)} className="text-slate-300 hover:text-red-500 transition-colors">
@@ -221,30 +244,30 @@ export default function CartPage() {
 
             {/* SECCIÓN DE CUPÓN */}
             <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                    <Tag size={14} className="text-[#3048ab]" />
-                    <span className="text-[10px] font-black uppercase text-[#0a0f1a]">{t("couponPlaceholder")}</span>
-                </div>
-                <div className="flex gap-2">
-                    <input 
-                        type="text" 
-                        value={couponInput}
-                        onChange={(e) => setCouponInput(e.target.value)}
-                        placeholder="BIENVENIDO"
-                        className="flex-grow bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold outline-none focus:border-[#3048ab] uppercase"
-                    />
-                    <button 
-                        onClick={handleApplyCoupon}
-                        className="bg-[#0a0f1a] text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase hover:bg-[#3048ab] transition-colors"
-                    >
-                        {t("btnApplyCoupon")}
-                    </button>
-                </div>
-                {couponStatus && (
-                    <p className={`mt-2 text-[10px] font-bold uppercase ${couponStatus.type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
-                        {couponStatus.msg}
-                    </p>
-                )}
+              <div className="flex items-center gap-2 mb-4">
+                <Tag size={14} className="text-[#3048ab]" />
+                <span className="text-[10px] font-black uppercase text-[#0a0f1a]">{t("couponPlaceholder")}</span>
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={couponInput}
+                  onChange={(e) => setCouponInput(e.target.value)}
+                  placeholder="BIENVENIDO"
+                  className="flex-grow bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold outline-none focus:border-[#3048ab] uppercase"
+                />
+                <button
+                  onClick={handleApplyCoupon}
+                  className="bg-[#0a0f1a] text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase hover:bg-[#3048ab] transition-colors"
+                >
+                  {t("btnApplyCoupon")}
+                </button>
+              </div>
+              {couponStatus && (
+                <p className={`mt-2 text-[10px] font-bold uppercase ${couponStatus.type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
+                  {couponStatus.msg}
+                </p>
+              )}
             </div>
 
             {/* RESUMEN DE COSTOS */}
@@ -252,27 +275,27 @@ export default function CartPage() {
               <div className="absolute top-0 right-0 p-8 opacity-10"><Hash size={80} /></div>
               <div className="relative z-10 space-y-3">
                 <div className="flex justify-between items-center opacity-60">
-                    <span className="text-[10px] font-black uppercase">{t("subtotalLabel")}</span>
-                    <span className="text-sm font-bold">{formatPrice(totals.subtotal)}</span>
+                  <span className="text-[10px] font-black uppercase">{t("subtotalLabel")}</span>
+                  <span className="text-sm font-bold">{formatPrice(totals.subtotal)}</span>
                 </div>
-                
+
                 {totals.discountAmount > 0 && (
-                    <div className="flex justify-between items-center text-[#facc15]">
-                        <span className="text-[10px] font-black uppercase">{t("discountLabel")}</span>
-                        <span className="text-sm font-bold">-{formatPrice(totals.discountAmount)}</span>
-                    </div>
+                  <div className="flex justify-between items-center text-[#facc15]">
+                    <span className="text-[10px] font-black uppercase">{t("discountLabel")}</span>
+                    <span className="text-sm font-bold">-{formatPrice(totals.discountAmount)}</span>
+                  </div>
                 )}
 
                 <div className="flex justify-between items-center opacity-60">
-                    <span className="text-[10px] font-black uppercase">{t("tax")}</span>
-                    <span className="text-sm font-bold">{formatPrice(totals.taxAmount)}</span>
+                  <span className="text-[10px] font-black uppercase">{t("tax")}</span>
+                  <span className="text-sm font-bold">{formatPrice(totals.taxAmount)}</span>
                 </div>
 
                 <div className="pt-4 border-t border-white/10 flex justify-between items-end">
-                    <span className="text-[10px] font-black uppercase text-[#facc15]">{t("totalLabel")}</span>
-                    <div className="text-4xl font-black leading-none">{formatPrice(totals.finalTotal)}</div>
+                  <span className="text-[10px] font-black uppercase text-[#facc15]">{t("totalLabel")}</span>
+                  <div className="text-4xl font-black leading-none">{formatPrice(totals.finalTotal)}</div>
                 </div>
-                
+
                 <p className="text-[10px] font-bold text-white/40 uppercase pt-4 flex items-center gap-2">
                   <ShieldCheck size={12} className="text-[#facc15]" /> {t("secureCheckout")}
                 </p>
@@ -326,7 +349,7 @@ export default function CartPage() {
                   <div className="grid grid-cols-3 gap-4">
                     <Input required name="expMonth" placeholder="MM" maxLength={2} onChange={handleInputChange} className="text-center" />
                     <Input required name="expYear" placeholder="AA" maxLength={2} onChange={handleInputChange} className="text-center" />
-                    <Input required name="cvv" type="password"  placeholder="CVV" maxLength={4} onChange={handleInputChange} className="text-center font-mono" />
+                    <Input required name="cvv" type="password" placeholder="CVV" maxLength={4} onChange={handleInputChange} className="text-center font-mono" />
                   </div>
                 </section>
 
