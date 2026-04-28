@@ -32,7 +32,7 @@ export default function Footer() {
             <address className="not-  text-white-300 space-y-4 font-sans text-sm">
               <div className="flex gap-3">
                 <MapPin size={20} className="text-[#facc15] shrink-0" />
-                <p>Av Periférico Sur 4829, Piso 2, Col. Parque del Pedregal, Tlalpan, CDMX, CP 14010</p>
+                <p>Av Periférico Sur 4829, Piso 2, Col. Parque del Pedregal, Tlalpan, Ciudad de México, CP 14010</p>
               </div>
               <div className="flex items-center gap-3">
                 <PhoneCall size={20} className="text-[#facc15] shrink-0" />
@@ -53,15 +53,15 @@ export default function Footer() {
               {t("policiesTitle")}
             </h5>
             <nav className="space-y-4 font-sans text-sm">
-              <Link href="/privacy-policy" className="flex items-center gap-2 text-white-300 hover:text-white transition-colors group">
+              <Link href="/legal/privacy" className="flex items-center gap-2 text-white-300 hover:text-white transition-colors group">
                 <ShieldCheck size={18} className="group-hover:text-[#facc15]" />
                 {t("privacy")}
               </Link>
-              <Link href="/returns" className="flex items-center gap-2 text-white-300 hover:text-white transition-colors group">
+              <Link href="/legal/reembolsos" className="flex items-center gap-2 text-white-300 hover:text-white transition-colors group">
                 <Truck size={18} className="group-hover:text-[#facc15]" />
                 {t("returns")}
               </Link>
-              <Link href="/terms" className="flex items-center gap-2 text-white-300 hover:text-white transition-colors group">
+              <Link href="/legal/terminos" className="flex items-center gap-2 text-white-300 hover:text-white transition-colors group">
                 <FileText size={18} className="group-hover:text-[#facc15]" />
                 {t("terms")}
               </Link>

@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
   const productId = params.id as string;
   const { product, relatedProducts, isLoading, error } = useProduct(productId);
   const { addToCart, isInCart } = useCartContext();
-  
+
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -93,7 +93,7 @@ export default function ProductDetailPage() {
     );
   }
 
-  const images = product.images || [product.image];
+  const images = [product.image];
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -120,7 +120,7 @@ export default function ProductDetailPage() {
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-              
+
               {/* Columna 1: Galería de Imágenes */}
               <div className="space-y-6">
                 <div className="relative aspect-square rounded-3xl overflow-hidden bg-slate-50 border border-slate-100 group shadow-2xl">
@@ -149,9 +149,8 @@ export default function ProductDetailPage() {
                       <button
                         key={index}
                         onClick={() => setSelectedImage(index)}
-                        className={`flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all p-2 bg-slate-50 ${
-                          selectedImage === index ? "border-[#facc15] shadow-lg scale-95" : "border-slate-100 opacity-60 hover:opacity-100"
-                        }`}
+                        className={`flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all p-2 bg-slate-50 ${selectedImage === index ? "border-[#facc15] shadow-lg scale-95" : "border-slate-100 opacity-60 hover:opacity-100"
+                          }`}
                       >
                         <img src={img} alt="Thumbnail" className="w-full h-full object-contain" />
                       </button>
@@ -171,29 +170,25 @@ export default function ProductDetailPage() {
                       <Hash size={12} /> SKU: {product.sku}
                     </span>
                   </div>
-                  
+
                   <h1 className="text-4xl md:text-5xl font-black text-[#0a0f1a]   uppercase  ">
                     {locale === "es" ? product.name : (product.name_english || product.name)}
                   </h1>
 
                   <div className="flex items-center gap-4">
-                    
-             
+
+
                   </div>
                 </div>
 
                 <div className="mb-10 p-8 bg-slate-50 rounded-3xl border border-slate-100 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[#facc15]/5 rounded-full -mr-16 -mt-16 blur-2xl" />
-                  
+
                   <div className="flex items-baseline gap-4 mb-2">
                     <span className="text-4xl font-black text-[#0a0f1a] tracking-tight">
                       {formatPrice(product.price)}
                     </span>
-                    {product.originalPrice && (
-                      <span className="text-xl text-white-400 line-through font-light">
-                        {formatPrice(product.originalPrice)}
-                      </span>
-                    )}
+                   
                   </div>
                   <p className="text-xs font-bold text-green-600 uppercase   flex items-center gap-2">
                     <Tag size={12} /> {t("taxIncluded")}
@@ -241,11 +236,10 @@ export default function ProductDetailPage() {
                     <button
                       onClick={handleAddToCart}
                       disabled={isInCart(product.id)}
-                      className={`flex-1 py-4 px-8 rounded-xl font-black uppercase   flex items-center justify-center gap-3 transition-all shadow-xl ${
-                        isInCart(product.id)
+                      className={`flex-1 py-4 px-8 rounded-xl font-black uppercase   flex items-center justify-center gap-3 transition-all shadow-xl ${isInCart(product.id)
                           ? "bg-green-500 text-white shadow-green-500/20"
                           : "bg-[#3048ab] text-white hover:bg-slate-800 shadow-slate-900/20 hover:-translate-y-1"
-                      }`}
+                        }`}
                     >
                       {isInCart(product.id) ? <Check size={20} /> : <ShoppingCart size={20} />}
                       {isInCart(product.id) ? t("btnAdded") : t("btnAddToCart")}

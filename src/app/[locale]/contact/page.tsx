@@ -63,7 +63,7 @@ export default function ContactPage() {
               <ContactInfoCard 
                 icon={<MapPin className="text-[#facc15]" />} 
                 title={t("labelLocation")} 
-                content="Av Periférico Sur 4829, Tlalpan, CDMX." 
+                content="Av Periférico Sur 4829, Piso 2, Col. Parque del Pedregal, Tlalpan, Ciudad de México, CP 14010" 
               />
               <ContactInfoCard 
                 icon={<Mail className="text-[#facc15]" />} 
@@ -78,11 +78,6 @@ export default function ContactPage() {
                 content="+52 55 2155 4503" 
                 isLink 
                 href="tel:+525521554503" 
-              />
-              <ContactInfoCard 
-                icon={<Clock className="text-[#facc15]" />} 
-                title={t("labelHours")} 
-                content="Lun - Vie: 9:00 - 18:00" 
               />
             </div>
 
@@ -196,7 +191,7 @@ export default function ContactPage() {
           <div className="container mx-auto max-w-7xl">
              <div className="rounded-2xl shadow-2xl border-4 border-white overflow-hidden h-[450px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.2638446187645!2d-99.1764669238803!3d19.29260798195861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0079979a32c5%3A0x673193437256e076!2sPerif.%20Sur%204829%2C%20Parque%20del%20Pedregal%2C%20Tlalpan%2C%2014010%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1714150000000!5m2!1ses-419!2smx"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1171.5196293509225!2d-99.18902845662508!3d19.302081260928958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce007793722fc1%3A0x20f978a7136c6828!2sPeriferico%20Sur%204829%2C%20Parques%20del%20Pedregal%2C%20Tlalpan%2C%2014010%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1777396772211!5m2!1ses-419!2smx"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

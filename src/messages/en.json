@@ -39,7 +39,7 @@
     "supportDesc": "Let us help you with your purchase"
   },
   "WhyChoose": {
-    "WhyChoose" : "Why Choose us?",
+    "WhyChoose": "Why Choose us?",
     "qualityTitle": "Quality Assurance",
     "qualityDesc": "All our products undergo rigorous quality controls to ensure their reliability and effectiveness.",
     "experienceTitle": "Experience",
@@ -112,7 +112,7 @@
     "backToShop": "Back to Catalog",
     "outOfStock": "Out of Stock",
     "reviews": "reviews",
-    "taxIncluded": "Prices include VAT",
+    "taxIncluded": "Plus VAT",
     "inStockStatus": "Immediate Availability",
     "outOfStockStatus": "Out of Stock",
     "btnAddToCart": "Add to Cart",
@@ -130,6 +130,7 @@
     "btnFilters": "Filters",
     "labelCategories": "Categories",
     "catAll": "All",
+    "tax": "+ VAT",
     "showing": "Showing",
     "results": "results",
     "saleBadge": "Special Offer",
@@ -142,6 +143,13 @@
     "btnClearFilters": "Reset Catalog"
   },
   "Cart": {
+    "tax": "VAT (16%)",
+    "discountLabel": "Discount",
+    "couponPlaceholder": "Coupon code",
+    "btnApplyCoupon": "Apply",
+    "couponInvalid": "Invalid code",
+    "couponApplied": "Coupon applied!",
+    "totalLabel": "Final Total",
     "cartTitle": "Order Summary",
     "emptyTitle": "Empty Cart",
     "emptyDesc": "It looks like you haven't selected any medical equipment for your practice yet.",
@@ -171,5 +179,12 @@
     "qty": "Qty",
     "errorPayment": "The transaction was declined by the banking institution.",
     "errorGeneric": "An error occurred in the payment server."
+  },
+  "OfferModal": {
+    "welcome": "Welcome",
+    "discount": "discount",
+    "description": "On your first purchase using the code",
+    "code": "BIENVENIDO",
+    "cta": "Make my first purchase"
   }
 }

@@ -7,13 +7,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useProducts } from "@/hooks/useProducts";
 import { useCartContext } from "@/context/CartContext";
-import { 
-  Search, 
-  ShoppingCart, 
-  Star, 
-  Filter, 
-  X, 
-  ChevronLeft, 
+import {
+  Search,
+  ShoppingCart,
+  Star,
+  Filter,
+  X,
+  ChevronLeft,
   ChevronRight,
   PackageSearch,
   LayoutGrid,
@@ -27,16 +27,16 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
 
-  const { 
-    products, 
-    isLoading, 
-    categories, 
-    totalCount, 
-    totalPages 
+  const {
+    products,
+    isLoading,
+    categories,
+    totalCount,
+    totalPages
   } = useProducts({
     category: selectedCategory === "all" ? undefined : selectedCategory,
     search: searchQuery || undefined,
@@ -66,7 +66,7 @@ export default function ShopPage() {
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
       <main className="flex-grow">
-        
+
         {/* Banner Institucional */}
         <section className="bg-[#3048ab] py-16 md:py-24 relative overflow-hidden border-b-8 border-[#facc15]">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#facc15 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }} />
@@ -83,12 +83,13 @@ export default function ShopPage() {
         </section>
 
         {/* Barra de Herramientas y Filtros */}
-        <section className="bg-white border-b border-slate-200 sticky top-16 md:top-20 z-40 shadow-sm">
+        <section className="bg-white border-b border-slate-200 top-16 md:top-20 z-40 shadow-sm">
           <div className="container mx-auto px-6 py-4">
+
             <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-              
+
               {/* Buscador de Precisión */}
-              <div className="relative w-full lg:w-96 group">
+              <div className="relative w-full py-4 group">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white-400 group-focus-within:text-[#3048ab] transition-colors" size={18} />
                 <input
                   type="text"
@@ -98,7 +99,10 @@ export default function ShopPage() {
                   className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-[#3048ab]/5 focus:border-[#3048ab] outline-none transition-all font-sans text-sm"
                 />
               </div>
+            </div>
 
+
+            <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
               {/* Toggle de Filtros Móvil */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
@@ -112,17 +116,17 @@ export default function ShopPage() {
                 <div className="flex items-center gap-2 mr-4 text-[10px] font-black text-white-400 uppercase  ">
                   <LayoutGrid size={14} /> {t("labelCategories")}:
                 </div>
-                <FilterButton 
-                  active={selectedCategory === "all"} 
+                <FilterButton
+                  active={selectedCategory === "all"}
                   onClick={() => setSelectedCategory("all")}
-                  label={t("catAll")} 
+                  label={t("catAll")}
                 />
                 {categories.map((category) => (
-                  <FilterButton 
+                  <FilterButton
                     key={category}
-                    active={selectedCategory === category} 
+                    active={selectedCategory === category}
                     onClick={() => setSelectedCategory(category)}
-                    label={category} 
+                    label={category}
                   />
                 ))}
               </div>
@@ -138,9 +142,9 @@ export default function ShopPage() {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <FilterButton mobile active={selectedCategory === "all"} onClick={() => {setSelectedCategory("all"); setShowFilters(false)}} label={t("catAll")} />
+                  <FilterButton mobile active={selectedCategory === "all"} onClick={() => { setSelectedCategory("all"); setShowFilters(false) }} label={t("catAll")} />
                   {categories.map((category) => (
-                    <FilterButton key={category} mobile active={selectedCategory === category} onClick={() => {setSelectedCategory(category); setShowFilters(false)}} label={category} />
+                    <FilterButton key={category} mobile active={selectedCategory === category} onClick={() => { setSelectedCategory(category); setShowFilters(false) }} label={category} />
                   ))}
                 </div>
               </div>
@@ -168,7 +172,7 @@ export default function ShopPage() {
                 <h3 className="text-2xl font-black text-[#0a0f1a] uppercase tracking-tight mb-2 relative z-10">{t("noResultsTitle")}</h3>
                 <p className="text-white-400 mb-8 font-medium relative z-10">{t("noResultsDesc")}</p>
                 <button
-                  onClick={() => {setSearchQuery(""); setSelectedCategory("all")}}
+                  onClick={() => { setSearchQuery(""); setSelectedCategory("all") }}
                   className="px-10 py-4 bg-[#3048ab] text-white rounded-xl font-black uppercase   text-xs hover:bg-slate-800 transition-all relative z-10"
                 >
                   {t("btnClearFilters")}
@@ -189,7 +193,7 @@ export default function ShopPage() {
                       key={product.id}
                       className="group bg-white rounded-[2rem] border border-slate-100 p-6 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 hover:-translate-y-2 flex flex-col relative"
                     >
-                      
+
 
                       <Link href={`/shop/${product.id}`} className="block relative aspect-square rounded-2xl bg-slate-50 mb-6 overflow-hidden">
                         <img
@@ -210,34 +214,33 @@ export default function ShopPage() {
                         <span className="text-[10px] font-black text-[#3048ab] uppercase   mb-1 flex items-center gap-1">
                           <Hash size={10} /> {product.category}
                         </span>
-                        
+
                         <Link href={`/shop/${product.id}`}>
-                          <h3 className="text-[#0a0f1a] font-black uppercase text-sm leading-tight tracking-tight mt-1 line-clamp-2 min-h-[2.5rem] group-hover:text-[#3048ab] transition-colors">
+                          <h3 className="text-[#0a0f1a] font-black uppercase text-xs leading-tight tracking-tight mt-1 line-clamp-2 min-h-[2.5rem] group-hover:text-[#3048ab] transition-colors">
                             {locale === "es" ? product.name : (product.name_english || product.name)}
                           </h3>
                         </Link>
 
-                      
+
 
                         <div className="mt-6 flex flex-col">
                           <div className="flex items-baseline gap-2">
                             <span className="text-xl font-black text-[#0a0f1a]  ">
-                              {formatPrice(product.price)}
+                              {formatPrice(product.price)} {t("tax")}
                             </span>
-                            
+
                           </div>
                         </div>
 
                         <button
                           onClick={() => addToCart(product)}
                           disabled={!product.inStock || isInCart(product.id)}
-                          className={`w-full mt-6 py-4 rounded-xl font-black uppercase text-[10px] flex items-center justify-center gap-2 transition-all ${
-                            !product.inStock
+                          className={`w-full mt-6 py-4 rounded-xl font-black uppercase text-[10px] flex items-center justify-center gap-2 transition-all ${!product.inStock
                               ? "bg-slate-100 text-white-400 cursor-not-allowed border border-slate-200"
                               : isInCart(product.id)
                                 ? "bg-green-500 text-white shadow-lg shadow-green-500/20"
                                 : "bg-[#3048ab] text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20"
-                          }`}
+                            }`}
                         >
                           <ShoppingCart size={14} />
                           {isInCart(product.id) ? t("btnAdded") : product.inStock ? t("btnAddToCart") : t("btnUnavailable")}
@@ -257,7 +260,7 @@ export default function ShopPage() {
                     >
                       <ChevronLeft size={20} />
                     </button>
-                    
+
                     <div className="flex items-center gap-2">
                       {[...Array(totalPages)].map((_, i) => {
                         const pageNum = i + 1;
@@ -265,11 +268,10 @@ export default function ShopPage() {
                           <button
                             key={pageNum}
                             onClick={() => handlePageChange(pageNum)}
-                            className={`w-12 h-12 rounded-xl font-black text-xs transition-all border ${
-                              currentPage === pageNum
+                            className={`w-12 h-12 rounded-xl font-black text-xs transition-all border ${currentPage === pageNum
                                 ? "bg-[#3048ab] text-white border-[#0a0f1a] shadow-xl shadow-slate-900/20 scale-110"
                                 : "bg-white text-white-400 border-slate-200 hover:border-[#0a0f1a] hover:text-[#0a0f1a]"
-                            }`}
+                              }`}
                           >
                             {pageNum}
                           </button>
@@ -302,11 +304,10 @@ function FilterButton({ label, active, onClick, mobile }: { label: string; activ
   return (
     <button
       onClick={onClick}
-      className={`px-5 py-2 rounded-xl text-[11px] font-black transition-all border ${
-        active 
-          ? "bg-[#3048ab] text-white border-[#3048ab] shadow-lg shadow-blue-900/20" 
+      className={`px-5 py-2 rounded-xl text-[11px] font-black transition-all border ${active
+          ? "bg-[#3048ab] text-white border-[#3048ab] shadow-lg shadow-blue-900/20"
           : "bg-white text-white-500 border-slate-200 hover:border-[#3048ab] hover:text-[#3048ab]"
-      } ${mobile ? "flex-1 text-center" : ""}`}
+        } ${mobile ? "flex-1 text-center" : ""}`}
     >
       {label}
     </button>

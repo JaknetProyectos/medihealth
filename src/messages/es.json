@@ -112,7 +112,7 @@
     "backToShop": "Volver al Catálogo",
     "outOfStock": "Agotado",
     "reviews": "reseñas",
-    "taxIncluded": "Precios incluyen IVA",
+    "taxIncluded": "Más IVA",
     "inStockStatus": "Disponibilidad Inmediata",
     "outOfStockStatus": "Sin Stock Disponible",
     "btnAddToCart": "Agregar al Carrito",
@@ -130,6 +130,7 @@
     "btnFilters": "Filtros",
     "labelCategories": "Categorías",
     "catAll": "Todos",
+    "tax" : "+ IVA",
     "showing": "Mostrando",
     "results": "resultados",
     "saleBadge": "Oferta Especial",
@@ -170,6 +171,20 @@
     "btnFinish": "Volver al Inicio",
     "qty": "Cant",
     "errorPayment": "La transacción fue declinada por la institución bancaria.",
-    "errorGeneric": "Ocurrió un error en el servidor de pagos."
+    "errorGeneric": "Ocurrió un error en el servidor de pagos.",
+    "tax": "IVA (16%)",
+    "discountLabel": "Descuento",
+    "couponPlaceholder": "Código de cupón",
+    "btnApplyCoupon": "Aplicar",
+    "couponInvalid": "El código no es válido",
+    "couponApplied": "¡Cupón aplicado!",
+    "totalLabel": "Total Final"
+  },
+  "OfferModal": {
+    "welcome": "Bienvenido",
+    "discount": "de descuento",
+    "description": "En tu primera compra usando el código",
+    "code": "BIENVENIDO",
+    "cta": "Realizar mi primera compra"
   }
 }
