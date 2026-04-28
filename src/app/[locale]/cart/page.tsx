@@ -202,9 +202,9 @@ export default function CartPage() {
                 {/* 1. DATOS PERSONALES */}
                 <section>
                   <SectionLabel number="01" title={t("secPersonal")} icon={<User size={16} />} />
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input required name="firstName" placeholder={t("phName")} onChange={handleInputChange} />
-                    <Input name="middleName" placeholder={t("phMiddleName")} onChange={handleInputChange} />
+
                     <Input required name="lastName" placeholder={t("phLastName")} onChange={handleInputChange} />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
