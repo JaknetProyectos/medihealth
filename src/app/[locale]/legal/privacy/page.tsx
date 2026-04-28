@@ -4,7 +4,7 @@ import { useLocale } from "next-intl";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export function LegalEs() {
+function LegalEs() {
     return (
         <div className="legal-container">
             <style dangerouslySetInnerHTML={{
@@ -87,7 +87,7 @@ export function LegalEs() {
     );
 }
 
-export function LegalEn() {
+function LegalEn() {
     return (
         <div className="legal-container">
             <style dangerouslySetInnerHTML={{
