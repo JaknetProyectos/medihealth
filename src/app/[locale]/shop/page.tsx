@@ -217,7 +217,12 @@ export default function ShopPage() {
 
                         <Link href={`/shop/${product.id}`}>
                           <h3 className="text-[#0a0f1a] font-black uppercase text-xs leading-tight tracking-tight mt-1 line-clamp-2 min-h-[2.5rem] group-hover:text-[#3048ab] transition-colors">
-                            {locale === "es" ? product.name : (product.name_english || product.name)}
+                            {
+                              (locale === "es" ? product.name : (product.name_english || product.name))
+                                ?.length > 30
+                                ? (locale === "es" ? product.name : (product.name_english || product.name)).slice(0, 30) + "..."
+                                : (locale === "es" ? product.name : (product.name_english || product.name))
+                            }
                           </h3>
                         </Link>
 
@@ -236,10 +241,10 @@ export default function ShopPage() {
                           onClick={() => addToCart(product)}
                           disabled={!product.inStock || isInCart(product.id)}
                           className={`w-full mt-6 py-4 rounded-xl font-black uppercase text-[10px] flex items-center justify-center gap-2 transition-all ${!product.inStock
-                              ? "bg-slate-100 text-white-400 cursor-not-allowed border border-slate-200"
-                              : isInCart(product.id)
-                                ? "bg-green-500 text-white shadow-lg shadow-green-500/20"
-                                : "bg-[#3048ab] text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20"
+                            ? "bg-slate-100 text-white-400 cursor-not-allowed border border-slate-200"
+                            : isInCart(product.id)
+                              ? "bg-green-500 text-white shadow-lg shadow-green-500/20"
+                              : "bg-[#3048ab] text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20"
                             }`}
                         >
                           <ShoppingCart size={14} />
@@ -269,8 +274,8 @@ export default function ShopPage() {
                             key={pageNum}
                             onClick={() => handlePageChange(pageNum)}
                             className={`w-12 h-12 rounded-xl font-black text-xs transition-all border ${currentPage === pageNum
-                                ? "bg-[#3048ab] text-white border-[#0a0f1a] shadow-xl shadow-slate-900/20 scale-110"
-                                : "bg-white text-white-400 border-slate-200 hover:border-[#0a0f1a] hover:text-[#0a0f1a]"
+                              ? "bg-[#3048ab] text-white border-[#0a0f1a] shadow-xl shadow-slate-900/20 scale-110"
+                              : "bg-white text-white-400 border-slate-200 hover:border-[#0a0f1a] hover:text-[#0a0f1a]"
                               }`}
                           >
                             {pageNum}
@@ -305,8 +310,8 @@ function FilterButton({ label, active, onClick, mobile }: { label: string; activ
     <button
       onClick={onClick}
       className={`px-5 py-2 rounded-xl text-[11px] font-black transition-all border ${active
-          ? "bg-[#3048ab] text-white border-[#3048ab] shadow-lg shadow-blue-900/20"
-          : "bg-white text-white-500 border-slate-200 hover:border-[#3048ab] hover:text-[#3048ab]"
+        ? "bg-[#3048ab] text-white border-[#3048ab] shadow-lg shadow-blue-900/20"
+        : "bg-white text-white-500 border-slate-200 hover:border-[#3048ab] hover:text-[#3048ab]"
         } ${mobile ? "flex-1 text-center" : ""}`}
     >
       {label}
