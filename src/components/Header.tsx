@@ -3,24 +3,25 @@
 import { useState } from "react";
 import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
-import { 
-  Menu, 
-  X, 
-  ShoppingCart, 
-  Globe, 
-  Home, 
-  FileText, 
-  Stethoscope, 
-  PhoneCall 
+import {
+  Menu,
+  X,
+  ShoppingCart,
+  Globe,
+  Home,
+  FileText,
+  Stethoscope,
+  PhoneCall
 } from "lucide-react";
 import { useCartContext } from "@/context/CartContext";
 import Image from "next/image";
+import { useLocaleContext } from "@/context/LangContext";
 
 function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <Image src="/favicon.png" width={35} height={35} alt="logo" className="object-contain"/>
-      <h1 className="text-lg text-blue-600 font-black font-serif">Distribución</h1> 
+      <Image src="/favicon.png" width={35} height={35} alt="logo" className="object-contain" />
+      <h1 className="text-lg text-blue-600 font-black font-serif">Distribución</h1>
       <h1 className="text-lg text-yellow-400 font-black font-serif"> Médica</h1>
     </div>
   );
@@ -29,15 +30,13 @@ function Logo() {
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { totalItems } = useCartContext();
-  
+
   const t = useTranslations("Header");
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { locale, switchLanguage } = useLocaleContext()
 
   const toggleLocale = () => {
     const nextLocale = locale === "es" ? "en" : "es";
-    router.replace(pathname, { locale: nextLocale });
+    switchLanguage(nextLocale)
   };
 
   // Clases compartidas para los links
@@ -48,7 +47,7 @@ export default function Header() {
     <header className="bg-white border-b-4 border-[#facc15] sticky top-0 z-20 shadow-md">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          
+
           <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
             <Logo />
           </Link>
@@ -71,7 +70,7 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            
+
             {/* Language Switcher */}
             <button
               onClick={toggleLocale}
@@ -100,8 +99,8 @@ export default function Header() {
               )}
             </Link>
 
-            <button 
-              className="lg:hidden p-2 text-[#0f172a] bg-gray-100 rounded" 
+            <button
+              className="lg:hidden p-2 text-[#0f172a] bg-gray-100 rounded"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -125,8 +124,8 @@ export default function Header() {
                 <Stethoscope size={20} className={iconStyles} />
                 {t("shop")}
               </Link>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="flex items-center justify-center gap-2 px-6 py-4 bg-[#3048ab] text-white font-bold rounded shadow-md"
                 onClick={() => setIsMenuOpen(false)}
               >

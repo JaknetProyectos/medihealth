@@ -6,6 +6,7 @@ import ClientBody from "./ClientBody";
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { GoogleTagManager } from "@next/third-parties/google";
+import { LocaleProvider } from '@/context/LangContext';
 
 export default async function LocaleLayout({
   children,
@@ -29,11 +30,13 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
-      <ClientBody>
-        <CartProvider>
-          {children}
-        </CartProvider>
-      </ClientBody>
+      <LocaleProvider>
+        <ClientBody>
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </ClientBody>
+      </LocaleProvider>
 
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
     </NextIntlClientProvider>
