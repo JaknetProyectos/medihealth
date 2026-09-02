@@ -69,7 +69,7 @@ export default function CotizaPage() {
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-6xl font-black text-white mb-6   uppercase  ">
-                {t("heroTitle")} <span className="text-[#facc15] not- ">Personalizada</span>
+                {t("heroTitle")}
               </h1>
               <p className="text-white text-lg md:text-xl max-w-xl font-light mb-10">
                 {t("heroSubtitle")}

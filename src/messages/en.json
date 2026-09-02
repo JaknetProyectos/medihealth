@@ -74,7 +74,7 @@
     "labelLastName": "Last Name",
     "labelEmail": "Corporate Email",
     "labelQuoteId": "Quote ID",
-    "labelAmount": "Amount to Pay (MXN)",
+    "labelAmount": "Amount to Pay (USD)",
     "phName": "e.g. John",
     "phLastName": "e.g. Doe",
     "btnPay": "Process Payment Now",

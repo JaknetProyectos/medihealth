@@ -1,8 +1,12 @@
 'use server';
-import etomin from '@api/etomin';
 
-interface PaymentData {
+import axios from 'axios';
+
+export interface PaymentData {
     amount: number;
+    orderId: string;
+    currency?: string;
+
     cardData: {
         number: string;
         name: string;
@@ -10,77 +14,128 @@ interface PaymentData {
         year: string;
         cvv: string;
     };
+
     customer: {
-        firstName: string;
-        lastName: string;
-        city: string;
+        nombre: string;
+        apellido: string;
         email: string;
         telefono: string;
         direccion: string;
-        state: string;
-        middleName? : string;
+        direccion2?: string;
+        ciudad: string;
+        estado: string;
+        pais?: string;
         cp: string;
-        country: string;
+        empresa?: string;
     };
-    orderId: string;
+
+    metadata?: {
+        ip?: string;
+        deviceId?: string;
+        notes?: string;
+    };
+}
+
+const API_URL = "https://pagos.etomin.com/api/v1";
+
+// Instancia global con los headers base que exige Etomin
+const etominClient = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+    },
+});
+
+async function getAuthToken(): Promise<string> {
+    const { data } = await etominClient.post('/signin', {
+        email: process.env.ETOMIN_USER,
+        password: process.env.ETOMIN_PASSWORD,
+    });
+
+    return data.authToken;
+}
+
+async function tokenizeCard(token: string, payment: PaymentData): Promise<string> {
+    const card = payment.cardData;
+
+    const { data } = await etominClient.post(
+        '/card/tokenizer',
+        {
+            cardData: {
+                cardNumber: card.number.replace(/\s/g, ''), // Limpiar espacios
+                cardholderName: card.name,
+                expirationYear: card.year,
+                expirationMonth: card.month,
+            },
+        },
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
+
+    return data.cardNumberToken;
 }
 
 export async function processEtominPayment(payment: PaymentData) {
     try {
-        // 1. Autenticación con Etomin (Credenciales desde .env)
-        const authResponse = await etomin.postSignin({
-            email: process.env.ETOMIN_USER,
-            password: process.env.ETOMIN_PASSWORD
-        });
+        // 1. Autenticación
+        const authToken = await getAuthToken();
 
-        const token = authResponse.data.authToken;
+        // 2. Tokenización de la tarjeta (Sin el CVV)
+        const cardToken = await tokenizeCard(authToken, payment);
+        const currency = (payment.currency || "MXN").toUpperCase();
+        const currencyCode = currency === "USD" ? "840" : "484";
 
-        if (!token) throw new Error("Error al autenticarse con Etomin");
+        // 3. Ejecución de la Venta
+        const salePayload = {
+            amount: Number(payment.amount),
+            currency: currencyCode,
+            reference: payment.orderId,
 
-        etomin.auth(token);
-
-        // 2. Tokenizar la tarjeta
-        const tokenResponse = await etomin.postCardTokenizer({
-            cardData: {
-                cardNumber: payment.cardData.number.replace(/\s/g, ''), // Limpiar espacios
-                cardholderName: payment.cardData.name,
-                expirationYear: payment.cardData.year,
-                expirationMonth: payment.cardData.month
-            }
-        });
-
-        const cardToken = tokenResponse.data.cardNumberToken;
-
-        // 3. Realizar la Venta (Sale)
-        // El código de moneda '484' es para Pesos Mexicanos (MXN)
-        const saleResponse = await etomin.postSale({
-            amount: payment.amount,
             customerInformation: {
-                firstName: payment.customer.firstName,
-                lastName: payment.customer.lastName,
-                middleName: payment.customer.middleName ?? "",
+                firstName: payment.customer.nombre,
+                lastName: payment.customer.apellido,
                 email: payment.customer.email,
                 phone1: payment.customer.telefono,
-                city: payment.customer.city,
                 address1: payment.customer.direccion,
+                address2: payment.customer.direccion2 || "",
+                city: payment.customer.ciudad,
+                state: payment.customer.estado,
                 postalCode: payment.customer.cp,
-                state: payment.customer.state,
-                country: payment.customer.country,
-                ip: '0.0.0.0' // En producción, captura la IP real del cliente
+                country: payment.customer.pais || "MX",
+                company: payment.customer.empresa || "",
+                ip: payment.metadata?.ip || "127.0.0.1",
             },
+
             cardData: {
                 cardNumberToken: cardToken,
-                cvv: payment.cardData.cvv
+                cvv: payment.cardData.cvv,
             },
-            currency: '484',
-            reference: payment.orderId
+        };
+
+        const { data } = await etominClient.post('/sale', salePayload, {
+            headers: { Authorization: `Bearer ${authToken}` },
         });
 
-        // Retornamos la data si el status es aprobado (usualmente 'APPROVED' o '00')
-        return saleResponse.data;
+        // Validamos el estatus de forma insensible a mayúsculas/minúsculas ("approved" / "APPROVED")
+        const isApproved = data.status?.toUpperCase() === "APPROVED";
+
+        return {
+            success: isApproved,
+            orderId: data.orderId,
+            reference: data.reference,
+            transactionId: data.transactionId,
+            status: data.status,
+            data: data,
+        };
 
     } catch (error: any) {
-        console.error("❌ Error en pasarela Etomin:", error.response?.data || error.message);
-        throw new Error(error.response?.data?.message || "Error al procesar el pago");
+        console.error("Etomin Payment Error:", error.response?.data || error.message);
+        return {
+            success: false,
+            status: "error",
+            error: error.response?.data?.message || "Error procesando el pago con Etomin",
+        };
     }
 }

@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { GoogleTagManager } from "@next/third-parties/google";
 import { LocaleProvider } from '@/context/LangContext';
+import { CurrencyProvider } from '@/context/CurrencyContext';
 
 export default async function LocaleLayout({
   children,
@@ -32,9 +33,11 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleProvider>
         <ClientBody>
-          <CartProvider>
-            {children}
-          </CartProvider>
+          <CurrencyProvider>
+            <CartProvider>
+              {children}
+            </CartProvider>
+          </CurrencyProvider>
         </ClientBody>
       </LocaleProvider>
 

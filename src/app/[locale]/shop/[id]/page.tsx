@@ -23,6 +23,7 @@ import {
   ArrowRight,
   ChevronRight
 } from "lucide-react";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function ProductDetailPage() {
   const t = useTranslations("ProductDetail");
@@ -35,12 +36,7 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
-      style: "currency",
-      currency: "MXN",
-    }).format(price);
-  };
+  const { formatPrice } = useCurrency()
 
   const handleAddToCart = () => {
     if (product) addToCart(product, quantity);
@@ -188,7 +184,7 @@ export default function ProductDetailPage() {
                     <span className="text-4xl font-black text-[#0a0f1a] tracking-tight">
                       {formatPrice(product.price)}
                     </span>
-                   
+
                   </div>
                   <p className="text-xs font-bold text-green-600 uppercase   flex items-center gap-2">
                     <Tag size={12} /> {t("taxIncluded")}
@@ -237,8 +233,8 @@ export default function ProductDetailPage() {
                       onClick={handleAddToCart}
                       disabled={isInCart(product.id)}
                       className={`flex-1 py-4 px-8 rounded-xl font-black uppercase   flex items-center justify-center gap-3 transition-all shadow-xl ${isInCart(product.id)
-                          ? "bg-green-500 text-white shadow-green-500/20"
-                          : "bg-[#3048ab] text-white hover:bg-slate-800 shadow-slate-900/20 hover:-translate-y-1"
+                        ? "bg-green-500 text-white shadow-green-500/20"
+                        : "bg-[#3048ab] text-white hover:bg-slate-800 shadow-slate-900/20 hover:-translate-y-1"
                         }`}
                     >
                       {isInCart(product.id) ? <Check size={20} /> : <ShoppingCart size={20} />}
@@ -291,7 +287,9 @@ export default function ProductDetailPage() {
                         <img src={related.image} alt={related.name} className="w-full h-full object-contain p-6 grayscale-[40%] group-hover:grayscale-0 transition-all duration-500" />
                       </div>
                       <span className="text-[10px] font-black text-[#3048ab] uppercase  ">{related.category}</span>
-                      <h3 className="font-black text-[#0a0f1a] uppercase text-sm mt-2 mb-4 line-clamp-1 tracking-tight">{related.name}</h3>
+                      <h3 className="font-black text-[#0a0f1a] uppercase text-sm mt-2 mb-4 line-clamp-1 tracking-tight">
+                        {locale === "es" ? related.name : (related.name_english || related.name)}
+                      </h3>
                       <div className="flex items-center justify-between">
                         <p className="font-black text-[#0a0f1a]">{formatPrice(related.price)}</p>
                         <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-[#facc15] transition-colors">

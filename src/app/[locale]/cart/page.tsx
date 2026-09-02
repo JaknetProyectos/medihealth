@@ -13,11 +13,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { processEtominPayment } from "@/lib/payment";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function CartPage() {
   const t = useTranslations("Cart");
   const locale = useLocale();
   const { items, updateQuantity, removeFromCart, totalPrice, clearCart } = useCartContext();
+  const { formatPrice, currency, exchangeRate, convertPrice } = useCurrency()
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
@@ -67,13 +69,6 @@ export default function CartPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
-      style: "currency",
-      currency: "MXN"
-    }).format(price);
-  };
-
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
@@ -83,7 +78,7 @@ export default function CartPage() {
       const orderId = `PH-${Date.now()}`;
       // Usamos el total calculado con IVA y descuento
       const result = await processEtominPayment({
-        amount: totals.finalTotal,
+        amount: convertPrice(totals.finalTotal),
         cardData: {
           cvv: formData.cvv,
           month: formData.expMonth,
@@ -92,21 +87,20 @@ export default function CartPage() {
           year: formData.expYear
         },
         customer: {
-          city: formData.city,
-          country: formData.country,
+          ciudad: formData.city,
+          pais: formData.country,
           cp: formData.cp,
           direccion: formData.direccion,
           email: formData.email,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          state: formData.state,
+          nombre: formData.firstName,
+          apellido: formData.lastName,
+          estado: formData.state,
           telefono: formData.telefono,
-          middleName: formData.middleName ?? ""
         },
         orderId: orderId
       })
 
-      if (result.response === "APPROVED" || result.responseCode === "00") {
+      if (result.success) {
         setOrderSummary({
           id: orderId,
           items: [...items],
@@ -120,10 +114,13 @@ export default function CartPage() {
             body: JSON.stringify({
               orderId,
               items,
-              total: totals.finalTotal,
+              locale,
+              currency,
+              exchangeRate,
+              total: convertPrice(totals.finalTotal),
               customer: formData,
-              discount: totals.discountAmount,
-              tax: totals.taxAmount
+              discount: convertPrice(totals.discountAmount),
+              tax: convertPrice(totals.taxAmount)
             })
           });
         } catch (emailError) {

@@ -20,6 +20,7 @@ import {
   Hash
 } from "lucide-react";
 import ServicesBar from "@/components/ServicesBar";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function ShopPage() {
   const t = useTranslations("Shop");
@@ -27,6 +28,7 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const { formatPrice } = useCurrency()
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
@@ -49,13 +51,6 @@ export default function ShopPage() {
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategory, searchQuery]);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
-      style: "currency",
-      currency: "MXN",
-    }).format(price);
-  };
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
