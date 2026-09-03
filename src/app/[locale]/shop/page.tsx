@@ -206,10 +206,6 @@ export default function ShopPage() {
                       </Link>
 
                       <div className="flex flex-col flex-grow">
-                        <span className="text-[10px] font-black text-[#3048ab] uppercase   mb-1 flex items-center gap-1">
-                          <Hash size={10} /> {product.category}
-                        </span>
-
                         <Link href={`/shop/${product.id}`}>
                           <h3 className="text-[#0a0f1a] font-black uppercase text-xs leading-tight tracking-tight mt-1 line-clamp-2 min-h-[2.5rem] group-hover:text-[#3048ab] transition-colors">
                             {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/supabase/client";
+import { useLocale } from "next-intl";
 
 export interface Product {
   id: string;
@@ -38,12 +39,54 @@ interface UseProductsReturn {
   totalPages: number; // Para los botones de paginación
 }
 
+const categoriesSpanish = [
+  "Accesorios de Sueño",
+  "Emergencias",
+  "Oxigenoterapia",
+  "Terapia de Sueño",
+  "Equipos Hospitalarios",
+  "Cuidado Respiratorio",
+  "Consumibles",
+  "Quirófano",
+  "Monitoreo",
+  "Cuidado Neonatal",
+  "Láser Médico",
+  "Cuidado Crítico",
+  "Ginecología",
+  "Protección Personal",
+  "Accesorios Médicos",
+  "Desinfección",
+  "Equipos de Laboratorio",
+  "Diagnóstico del Sueño"
+]
+
+const categoriesEnglish = [
+  "Sleep Accessories",
+  "Emergencies",
+  "Oxygen Therapy",
+  "Sleep Therapy",
+  "Hospital Equipment",
+  "Respiratory Care",
+  "Consumables",
+  "Operating Room",
+  "Monitoring",
+  "Neonatal Care",
+  "Medical Laser",
+  "Critical Care",
+  "Gynecology",
+  "Personal Protection",
+  "Medical Accessories",
+  "Disinfection",
+  "Laboratory Equipment",
+  "Sleep Diagnostics"
+];
+
 export function useProducts(options: UseProductsOptions = {}): UseProductsReturn {
-  const { 
-    category, 
-    search, 
-    page = 1, 
-    pageSize = 10 
+  const {
+    category,
+    search,
+    page = 1,
+    pageSize = 10
   } = options;
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -51,22 +94,22 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsReturn
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const locale = useLocale()
 
   useEffect(() => {
     const fetchInitialData = async () => {
       setIsLoading(true);
       setError(null);
 
+
       try {
         // 1. Obtener categorías únicas (Solo una vez o cuando sea necesario)
         const { data: catData } = await supabase
           .from("distribucionmedica_products")
           .select("category");
-        
-        if (catData) {
-          const uniqueCategories = [...new Set(catData.map(item => item.category))];
-          setCategories(uniqueCategories);
-        }
+
+        const uniqueCategories = locale == "es" ? categoriesSpanish : categoriesEnglish;
+        setCategories(uniqueCategories);
 
         // 2. Calcular el rango para la paginación
         // SQL range es inclusivo (0-9 trae 10 elementos)
@@ -109,11 +152,11 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsReturn
     fetchInitialData();
   }, [category, search, page, pageSize]); // Dependencias actualizadas
 
-  return { 
-    products, 
-    isLoading, 
-    error, 
-    categories, 
+  return {
+    products,
+    isLoading,
+    error,
+    categories,
     totalCount,
     totalPages: Math.ceil(totalCount / pageSize)
   };
@@ -136,7 +179,7 @@ export function useProduct(id: string): UseProductReturn {
   useEffect(() => {
     const fetchProductDetails = async () => {
       if (!id) return;
-      
+
       setIsLoading(true);
       setError(null);
 

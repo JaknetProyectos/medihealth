@@ -159,9 +159,6 @@ export default function ProductDetailPage() {
               <div className="flex flex-col h-full">
                 <div className="mb-8 space-y-4">
                   <div className="flex items-center gap-4">
-                    <span className="px-3 py-1 bg-[#3048ab]/10 text-[#3048ab] text-[10px] font-black uppercase   rounded">
-                      {product.category}
-                    </span>
                     <span className="text-[10px] font-bold text-white-400 uppercase   flex items-center gap-1">
                       <Hash size={12} /> SKU: {product.sku}
                     </span>
@@ -286,7 +283,6 @@ export default function ProductDetailPage() {
                       <div className="aspect-square rounded-2xl bg-slate-50 mb-6 overflow-hidden relative">
                         <img src={related.image} alt={related.name} className="w-full h-full object-contain p-6 grayscale-[40%] group-hover:grayscale-0 transition-all duration-500" />
                       </div>
-                      <span className="text-[10px] font-black text-[#3048ab] uppercase  ">{related.category}</span>
                       <h3 className="font-black text-[#0a0f1a] uppercase text-sm mt-2 mb-4 line-clamp-1 tracking-tight">
                         {locale === "es" ? related.name : (related.name_english || related.name)}
                       </h3>
